@@ -40,15 +40,48 @@ class ModelTrainer:
             models={
             "LinearRegression":LinearRegression(),
             # "Lasso":Lasso(),
+            "Random Forest": RandomForestRegressor(),
             # "Ridge":Ridge(),
-            "KNeighborsRegressor":KNeighborsRegressor(),
+            "Gradient Boosting": GradientBoostingRegressor(),
+            # "KNeighborsRegressor":KNeighborsRegressor(),
             "Decision Tree":DecisionTreeRegressor(),
             "XGBRegressor":XGBRegressor(),
             "CatBoostRegressor":CatBoostRegressor(verbose=False),
             "AdaBoostRegressor":AdaBoostRegressor()
                      }
+            
+            params={
+                "Decision Tree":{
+                    'criterion':['squared_error','friedman_mse','absolute_error','poisson']
+                                },
+                "Random Forest":{
+                    'n_estimators':[8,16,32,64,128,256]
+                                },
+                "Gradient Boosting":{
+                    'learning_rate':[0.1,0.01,0.05,0.001],
+                    'subsample':[0.6,0.7,0.75,0.8,0.85,0.9],
+                    'n_estimators':[8,16,32,64,128,256]
+                                    },
+                "CatBoostRegressor":{
+                    'depth':[6,8,10],
+                    'learning_rate':[0.01,0.05,0.1],
+                    'iterations':[30,50,100]
+                                        },
+                'LinearRegression':{},
+                "XGBRegressor":{
+                    'learning_rate':[0.1,0.01,0.05,0.001],
+                    'n_estimators':[8,16,32,64,128,256]
+                                },
+                "AdaBoostRegressor":{
+                    'learning_rate':[0.1,0.01,0.001],
+                    'n_estimators':[8,16,32,64,256]
+                                    }
+
+                    }
+
+
             logging.info("Entering Evaluate function")
-            model_report:dict=evaluate_models(x_train=x_train,y_train=y_train,x_test=x_test,y_test=y_test,models=models)
+            model_report:dict=evaluate_models(x_train=x_train,y_train=y_train,x_test=x_test,y_test=y_test,models=models,param=params)
             logging.info("evaluate function excecuted")
 
             # TO get the best model score
