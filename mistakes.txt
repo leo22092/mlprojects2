@@ -1,0 +1,2 @@
+didnt press cntrl+S and run tried to make change and break code
+In every cfile in compomnent folder a config class will be created
